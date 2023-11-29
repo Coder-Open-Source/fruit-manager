@@ -23,7 +23,7 @@ pub fn insert(conn: &Connection) {
 
     println!("Qual fruta quer cadastrar no sistema?");
     let mut fruit_name: String = String::new();
-    let _ = io::stdin().read_line(&mut fruit_name);
+    io::stdin().read_line(&mut fruit_name).unwrap();
     fruit_name = fruit_name.trim().to_uppercase();
 
     let query_result = conn.query_row(
@@ -35,7 +35,7 @@ pub fn insert(conn: &Connection) {
     if let Ok(..) = query_result {
         println!("Está fruta ja esta cadastrada",);
     } else {
-        let _ = conn.execute("insert into fruits (name) values (?)", [&fruit_name]);
+        conn.execute("insert into fruits (name) values (?)", [&fruit_name]).unwrap();
         println!("Fruta: {} cadastrada com sucesso", &fruit_name);
     };
 
@@ -47,7 +47,7 @@ pub fn delete(conn: &Connection) {
 
     println!("Qual fruta quer deletar do sistema?");
     let mut fruit_name: String = String::new();
-    let _ = io::stdin().read_line(&mut fruit_name);
+    io::stdin().read_line(&mut fruit_name).unwrap();
     fruit_name = fruit_name.trim().to_uppercase();
 
     let query_result = conn.query_row(
@@ -57,7 +57,7 @@ pub fn delete(conn: &Connection) {
     );
 
     if let Ok(..) = query_result {
-        let _ = conn.execute("delete from fruits where name = ?", [&fruit_name]);
+        conn.execute("delete from fruits where name = ?", [&fruit_name]).unwrap();
         println!("Fruta: {} deletada com sucesso", &fruit_name);
     } else {
         println!("Não existe esta fruta no sistema.",);
