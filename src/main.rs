@@ -4,7 +4,7 @@ use std::process;
 mod functionsql;
 
 fn main() -> Result<()> {
-    let conn: Connection = Connection::open("../fruit.db")?;
+    let conn: Connection = Connection::open("fruit.db")?;
 
     conn.execute("create table if not exists fruits (
         id integer primary key,
